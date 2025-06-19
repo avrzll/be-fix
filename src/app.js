@@ -4,7 +4,7 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 
 import { config } from "./config/index.js";
-import { auth, homepage, kota } from "./routes/index.js";
+import { auth, homepage, kota, wisata, favorit } from "./routes/index.js";
 import { verifyToken } from "./middlewares/index.js";
 
 const app = express();
@@ -21,5 +21,7 @@ app.use("/auth", auth);
 app.use(verifyToken);
 
 app.use("/kota", kota);
+app.use("/wisata", wisata);
+app.use("/favorit", favorit);
 
 export default app;
