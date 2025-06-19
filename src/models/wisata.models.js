@@ -10,8 +10,20 @@ export class Wisata {
     return result;
   }
 
-  async getWisata(id) {
+  async getWisataById(id) {
     const query = "SELECT * FROM wisata WHERE id = ?";
+    let result = await this.db.query(query, [id]);
+    return result;
+  }
+
+  async getWisata() {
+    const query = "SELECT * FROM wisata";
+    let result = await this.db.query(query);
+    return result;
+  }
+
+  async getWisataByKotaId(id) {
+    const query = "SELECT * FROM wisata WHERE kota_id = ?";
     let result = await this.db.query(query, [id]);
     return result;
   }

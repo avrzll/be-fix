@@ -40,14 +40,26 @@ export const getWisataById = async (req, res) => {
   return response(res, 200, true, "Wisata fetched successfully!", result);
 };
 
-export const getAllWisata = async (req, res) => {
-  const result = await wisata.getAllWisata();
+export const getWisataByKotaId = async (req, res) => {
+  const { id } = req.params;
 
-  if (!result) {
-    return response(res, 404, false, "Wisata not found!");
+  try {
+    const result = await wisata.getWisataByKotaId(id);
+    return response(res, 200, true, "Wisata fetched successfully!", result);
+  } catch (e) {
+    logger.error(`Error during wisata fetching: ${e.message}`);
+    return response(res, 500, false, "Internal Server Error");
   }
+};
 
-  return response(res, 200, true, "Wisata fetched successfully!", result);
+export const getAllWisata = async (req, res) => {
+  try {
+    const result = await wisata.getWisata();
+    return response(res, 200, true, "Wisata fetched successfully!", result);
+  } catch (e) {
+    logger.error(`Error during wisata fetching: ${e.message}`);
+    return response(res, 500, false, "Internal Server Error");
+  }
 };
 
 export const updateWisata = async (req, res) => {
