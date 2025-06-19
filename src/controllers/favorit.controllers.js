@@ -31,7 +31,7 @@ export const removeFavorite = async (req, res) => {
   try {
     const result = await favorit.removeFavorite(id, user_id);
     return response(res, 200, true, "Favorite removed successfully!", {
-      favorite_id: id,
+      wisata_id: id,
     });
   } catch (e) {
     logger.error(`Error during favorite removal: ${e.message}`);

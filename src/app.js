@@ -8,10 +8,10 @@ import { auth, homepage, kota, wisata, favorit } from "./routes/index.js";
 import { verifyToken } from "./middlewares/index.js";
 
 const app = express();
-const limiter = rateLimit(config.rate_limit);
+// const limiter = rateLimit(config.rate_limit);
 
 app.use(cors());
-app.use(limiter);
+// app.use(limiter);
 app.use(bodyParser.json({ limit: "30mb" }));
 
 // routes
