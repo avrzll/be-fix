@@ -7,13 +7,14 @@ export const addFavorite = async (req, res) => {
   }
 
   const { tempatWisataId } = req.body;
-  const { userId } = req.user.user_id;
+  const { user_id } = req.user;
+
   if (!tempatWisataId) {
     return response(res, 400, false, "Tempat wisata ID is required!");
   }
 
   try {
-    const result = await favorit.addFavorite(tempatWisataId, userId);
+    const result = await favorit.addFavorite(tempatWisataId, user_id);
     return response(res, 201, true, "Favorite added successfully!", {
       favorite_id: result.insertId,
     });
@@ -25,12 +26,12 @@ export const addFavorite = async (req, res) => {
 
 export const removeFavorite = async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.user.user_id;
+  const { user_id } = req.user;
 
   try {
-    const result = await favorit.removeFavorite(id, userId);
+    const result = await favorit.removeFavorite(id, user_id);
     return response(res, 200, true, "Favorite removed successfully!", {
-      favorite_id: result.insertId,
+      favorite_id: id,
     });
   } catch (e) {
     logger.error(`Error during favorite removal: ${e.message}`);
@@ -39,10 +40,10 @@ export const removeFavorite = async (req, res) => {
 };
 
 export const getFavorite = async (req, res) => {
-  const { userId } = req.user.user_id;
+  const { user_id } = req.user;
 
   try {
-    const result = await favorit.getFavorite(userId);
+    const result = await favorit.getFavorite(user_id);
     return response(res, 200, true, "Favorite fetched successfully!", result);
   } catch (e) {
     logger.error(`Error during favorite fetching: ${e.message}`);
